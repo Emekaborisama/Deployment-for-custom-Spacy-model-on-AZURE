@@ -1,0 +1,25 @@
+# pipeline to run test
+
+## Didnt test this cause my azure subscription has expired. pls do not run this as it might not work.
+
+jobs:
+- job: 'Test'
+  pool:
+    vmImage: 'ubuntu-latest'
+  strategy:
+    matrix:
+      Python38:
+        python.version: '3.8'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+- script: |
+    pip install pytest pytest-azurepipelines
+    pip install pytest
+    pip install pytest-cov
+    pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+  displayName: 'Install dependencies'
+- script: |
+    python -m pytest tests/
+  displayName: 'pytest'
