@@ -1,6 +1,6 @@
 import pytest
 
-
+from app import dates_extraction
 # importing the sys module
 import sys        
 from app.load_model import load_model
@@ -10,7 +10,7 @@ nlp = load_model("nlp_sm")
 
 
 
-from app import dates_extraction
+
 
 
 def test_extract_inf():
